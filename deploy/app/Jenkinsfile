@@ -1,0 +1,80 @@
+#!groovy
+
+node {
+  def TargetServer = "nest-template"
+  def DockerRepositoryName = "nest-template"
+  def DockerTagNamePrefix = "nest-template-"
+  def DockerFilePath = "./deploy/app/Dockerfile"
+
+  def AppRootDir = "app"
+  def DockerBaseImage
+  def DockerRepo = "lambda256/${DockerRepositoryName}".toString()
+  def DockerTagName
+  def DockerImageName
+  def AppVersion
+  def Workspace
+  def app
+
+  stage ('Whoami') {
+    sh 'whoami'
+    Workspace = pwd()
+    sh "echo ${Workspace}"
+  }
+  stage ('Clone Repository') {
+    checkout scm
+  }
+  stage ('SonarQube Analysis') {
+    if ("dev" == env.STAGE) {
+      def scannerHome = tool 'SonarScanner';
+      withSonarQubeEnv() {
+        sh "${scannerHome}/bin/sonar-scanner"
+      }
+    }
+  }
+  stage ('Retrieve DockerBaseImage') {
+    DockerBaseImage = sh(script: "node -e \"console.log(require('fs').readFileSync('${DockerFilePath}').toString('utf8').split('\\n').filter(e => e.indexOf('FROM ') === 0)[0].split(' ')[1])\"", returnStdout: true).trim()
+    sh "echo ${DockerBaseImage}"
+  }
+  stage ('Version Check') {
+    AppVersion = sh(script: 'node -e "console.log(require(\'./package.json\').version)"', returnStdout: true).trim()
+    DockerTagName = "${DockerTagNamePrefix}v${AppVersion}-${env.STAGE}"
+    DockerImageName = "${DockerRepo}:${DockerTagName}"
+    sh "echo ${DockerImageName}"
+  }
+  stage ('Build') {
+    docker.image("${DockerBaseImage}").inside("-u node -v \"${Workspace}/:/data/app\" -v \"/home/ubuntu/.ssh/id_rsa:/home/node/id\"") {
+      sh 'mkdir -p ~/.ssh'
+      sh 'cat ~/id > ~/.ssh/id_rsa'
+      sh 'chmod 0400 ~/.ssh/id_rsa'
+      sh 'ssh-keyscan github.com >> ~/.ssh/known_hosts'
+      sh 'git config --global url."ssh://git@".insteadOf git://'
+      sh 'cd /data/app && npm ci'
+      sh 'cd /data/app && npm ci --also=dev'
+      sh 'npm run build'
+      sh 'npm prune --production'
+    }
+  }
+  stage ('Build Docker Image') {
+    app = docker.build("${DockerImageName}", "-f ${DockerFilePath} .")
+  }
+  stage ('Push docker image') {
+    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials-devops') {
+      app.push("${DockerTagName}")
+    }
+  }
+  stage ('Deployment') {
+      sh "cd /home/ubuntu/git/jenkins/scripts/deploy && node app-one.js \" \
+      -e STAGE=${env.STAGE} \
+      -e NODE_ENV=${env.NODE_ENV} \
+      -e HTTP_PORT='${env.HTTP_PORT}' \
+      -e TARGET_DB='${env.TARGET_DB}' \
+      -e DB_HOST='${env.DB_HOST}' \
+      -e DB_PORT='${env.DB_PORT}' \
+      -e DB_USERNAME='${env.DB_USERNAME}' \
+      -e DB_CREDENTIAL='${env.DB_CREDENTIAL}' \
+      -e DB_CONNECTION_LIMIT='${env.DB_CONNECTION_LIMIT}' \
+      \" \
+      '${TargetServer}' ${AppRootDir} ${DockerImageName} '[\"http\"]'"
+  }
+}
+
