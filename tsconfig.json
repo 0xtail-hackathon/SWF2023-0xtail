@@ -29,5 +29,5 @@
     "**/*.js",
     ".eslintrc.js"
   ],
-//  "exclude": ["dist/**/*"]
+  "exclude": ["contract/**/*"]
 }

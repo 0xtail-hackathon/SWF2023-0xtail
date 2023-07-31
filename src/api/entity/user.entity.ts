@@ -8,17 +8,20 @@ export class UserEntity {
   id?: string;
 
   @Column({ type: 'varchar', name: 'user_name' })
-  userName: string;
+  userName?: string;
 
   @Column({ type: 'varchar', name: 'address' })
-  address: string;
+  address?: string;
 
   @Column({ type: 'varchar', name: 'private_key' })
-  privateKey: string;
+  privateKey?: string;
+
+  @Column({ type: 'int', name: 'krw', default: 1000000 })
+  krw?: number;
 
   @CreateDateColumn({ name: 'created_at' })
-  public createdAt: Date;
+  public createdAt?: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  public updatedAt: Date;
+  public updatedAt?: Date;
 }

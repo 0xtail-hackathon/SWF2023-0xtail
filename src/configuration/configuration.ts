@@ -15,6 +15,7 @@ export interface Configuration {
   host: string;
   ownerAddress: string;
   ownerPrivateKey: string;
+  erc20ContractAddress: string;
 }
 export type ConfigurationKeys = keyof Configuration;
 
@@ -30,5 +31,6 @@ export function getConfig(): Configuration {
     port: Number.parseInt(process.env.DB_PORT) || DEFAULT_DATABASE_PORT,
     ownerAddress: process.env.OWNER_ADDRESS,
     ownerPrivateKey: process.env.OWNER_PRIVATE_KEY,
+    erc20ContractAddress: process.env.ERC20_CONTRACT_ADDRESS,
   };
 }

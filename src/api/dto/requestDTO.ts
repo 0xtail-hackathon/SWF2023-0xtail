@@ -1,4 +1,8 @@
-export class RequestDTO {
+export class CreatWalletRequestDTO {
   userName: string;
-  // [key: string]: any;
+}
+
+export class SendFundRequestDTO {
+  userName: string;
+  amount: number;
 }

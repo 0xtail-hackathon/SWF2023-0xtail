@@ -1,6 +1,7 @@
 ### Example user template template
 ### Example user template
 
+.envrc
 # IntelliJ project files
 .idea
 *.iml
