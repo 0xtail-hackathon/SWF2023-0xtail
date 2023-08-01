@@ -14,4 +14,4 @@ export const RATE = 1;
 
 export const CAP = 100000000;
 
-export const TEST_CAP = 10;
+export const TEST_CAP = 50;

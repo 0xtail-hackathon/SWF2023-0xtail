@@ -1,6 +1,5 @@
 pragma solidity ^0.4.23;
 
-import "./token/ERC20/ERC20.sol";
 import "./math/SafeMath.sol";
 
 
@@ -37,6 +36,16 @@ contract Crowdsale {
         address indexed beneficiary,
         uint256 value,
         uint256 amount
+    );
+
+    /**
+    * Event for reached cap logging
+    * @param weiRaised wei raised for crowdsale
+    * @param cap cap set for crowdsale
+    */
+    event CapReached(
+        uint256 indexed weiRaised,
+        uint256 indexed cap
     );
 
    /**
@@ -114,6 +123,8 @@ contract Crowdsale {
             amount
         );
 
+        _postValidatePurchase();
+
     }
 
     // -----------------------------------------
@@ -129,13 +140,26 @@ contract Crowdsale {
         address _beneficiary,
         uint256 _weiAmount
     )
-    internal
+    internal view
     {
         require(_beneficiary != address(0));
         require(_weiAmount != 0);
         require(weiRaised.add(_weiAmount) <= cap, "cap reached");
     }
 
+    /**
+   * @dev Validation of an executed purchase. Observe state and use revert statements to undo rollback when valid conditions are not met.
+   */
+    function _postValidatePurchase()
+    internal
+    {
+        if(weiRaised == cap) {
+            emit CapReached(
+                weiRaised,
+                cap
+            );
+        }
+    }
 
    /**
    * @dev Source of tokens. Override this method to modify the way in which the crowdsale ultimately gets and sends its tokens.
