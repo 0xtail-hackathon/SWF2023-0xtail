@@ -1,5 +1,3 @@
-import {Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-
 export class CreatWalletRequestDTO {
   userName: string;
 }
@@ -23,4 +21,8 @@ export class GenerateArtifactRequestDTO {
   value?: number;
   startDate?: string;
   expiredDate?: string;
+}
+
+export class CloseCrowdsaleRequestDTO {
+  name?: string;
 }

@@ -1,6 +1,11 @@
 import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 
-import {CreatWalletRequestDTO, GenerateArtifactRequestDTO, SendFundRequestDTO} from '~/src/api/dto/requestDTO';
+import {
+  CloseCrowdsaleRequestDTO,
+  CreatWalletRequestDTO,
+  GenerateArtifactRequestDTO,
+  SendFundRequestDTO
+} from '~/src/api/dto/requestDTO';
 import { Response } from '~/src/api/dto/response';
 import { SUCCESS_CODE } from '~/src/common/constants';
 import { CommonLoggerService } from '~/src/logger/logger';
@@ -64,8 +69,8 @@ export class ApiController {
   }
 
   @Get('/crowdsale/:name')
-  async getCrowdsaleCAByName(@Param('name') artifactName: string): Promise<Response> {
-    const result = await this.apiService.getCrowdsaleCAByName(artifactName);
+  async getCrowdsaleByName(@Param('name') artifactName: string): Promise<Response> {
+    const result = await this.apiService.getCrowdsaleByName(artifactName);
     return <Response>{
       code: SUCCESS_CODE,
       data: result,
@@ -81,5 +86,13 @@ export class ApiController {
     };
   }
 
-  // TODO 환수 완료 API (ADMIN)
+  @Post('/crowdsale/close')
+  async closeCrowdsale(@Body()request: CloseCrowdsaleRequestDTO): Promise<Response> {
+    // this.logger.debug(JSON.stringify(request));
+    const result = await this.apiService.closeCrowdsale(request.name);
+    return <Response><unknown>{
+      code: SUCCESS_CODE,
+      data: result,
+    };
+  }
 }
