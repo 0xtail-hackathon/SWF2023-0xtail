@@ -11,7 +11,6 @@ import {FundEntity} from "~/src/api/entity/fund.entity";
 import {ArtifactEntity} from "~/src/api/entity/artifact.entity";
 import {GenerateArtifactRequestDTO} from "~/src/api/dto/requestDTO";
 import {CrowdSaleEntity} from "~/src/api/entity/crowd-sale.entity";
-import {ar} from "date-fns/locale";
 
 @Injectable()
 export class ApiService {
@@ -91,6 +90,10 @@ export class ApiService {
     return await this.artifactEntityRepository.findOneBy({name:artifactName});
   }
 
+  async getCrowdsaleCAByName(artifactName: string): Promise<Record<string, any>> {
+    return await this.crowdSaleEntityRepository.findOneBy({name:artifactName});
+  }
+
   async getArtifacts(): Promise<Record<string, any>> {
     return await this.artifactEntityRepository.find();
   }
@@ -100,7 +103,7 @@ export class ApiService {
     if(preArt) {
       throw new BadRequestException('already exist artifact')
     }
-    // TODO crodSale deploy logic 추가
+    // TODO crowdSale deploy logic 추가
     const erc721ContractFactory = new ethers.ContractFactory(MyERC721__factory.abi, MyERC721__factory.bytecode, this.wallet)
     const erc721Contract = await erc721ContractFactory.deploy(artifact.name, "ROOT", artifact.imgUrl)
     // await erc721Contract.waitForDeployment()

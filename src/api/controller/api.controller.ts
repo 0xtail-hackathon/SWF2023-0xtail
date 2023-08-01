@@ -63,6 +63,15 @@ export class ApiController {
     };
   }
 
+  @Get('/crowdsale/:name')
+  async getCrowdsaleCAByName(@Param('name') artifactName: string): Promise<Response> {
+    const result = await this.apiService.getCrowdsaleCAByName(artifactName);
+    return <Response>{
+      code: SUCCESS_CODE,
+      data: result,
+    };
+  }
+
   @Get('/artifacts')
   async getArtifacts(): Promise<Response> {
     const result = await this.apiService.getArtifacts();
