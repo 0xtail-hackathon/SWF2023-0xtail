@@ -1,4 +1,4 @@
-# root-swf2023
+# SWF2023-0xtail
 swf2023 0xtail 팀 ROOT 프로젝트 최종본
 
 ## What is ROOT
