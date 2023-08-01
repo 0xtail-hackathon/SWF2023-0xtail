@@ -88,7 +88,7 @@ export class ApiController {
 
   @Post('/crowdsale/close')
   async closeCrowdsale(@Body()request: CloseCrowdsaleRequestDTO): Promise<Response> {
-    // this.logger.debug(JSON.stringify(request));
+    this.logger.debug(JSON.stringify(request));
     const result = await this.apiService.closeCrowdsale(request.name);
     return <Response><unknown>{
       code: SUCCESS_CODE,

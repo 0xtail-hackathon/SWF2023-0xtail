@@ -351,27 +351,29 @@ export class ApiService {
     return artifact;
   }
 
-  async closeCrowdsale(artifactName: string): Promise<boolean> {
+  async closeCrowdsale(artifactName: string): Promise<Record<string, any>> {
     const userList: Record<string, any>[] = await this.getFundedUsersByArtifact(artifactName);
+    const returnList: any[] = [];
     const artifactErc721CA = await this.getErc721CAByName(artifactName);
     const artifactErc721 = new ethers.Contract(artifactErc721CA, MyERC721__factory.abi, this.wallet);
-    try {
-      for (let i = 0; i < userList.length; i++) {
-        console.log(JSON.stringify(userList[i]));
-        const userEoa = await this.getUserEOAByName(userList[i].userName);
-        try {
-          const result = await artifactErc721.mint(userEoa);
-          const receipt: TransactionReceipt = await result.wait();
-          this.logger.debug(JSON.stringify(receipt));
-        } catch (error) {
-          console.log(`Error during minting for user ${userList[i].userName}: ${error}`);
-        }
+
+    for (let i = 0; i < userList.length; i++) {
+      console.log(JSON.stringify(userList[i]));
+      const userEoa = await this.getUserEOAByName(userList[i].userName);
+      try {
+        const result = await artifactErc721.mint(userEoa);
+        const receipt: TransactionReceipt = await result.wait();
+        this.logger.debug(JSON.stringify(receipt));
+        returnList.push({
+          username: userList[i].userName,
+          txHash: receipt.hash,
+        });
+      } catch (error) {
+        console.log(`Error during minting for user ${userList[i].userName}: ${error}`);
       }
-      return true;
-    } catch (e) {
-      console.log(e);
-      return false;
     }
-  }
+    return returnList;
+
+    }
 
 }
