@@ -23,5 +23,4 @@ export class GenerateArtifactRequestDTO {
   value?: number;
   startDate?: string;
   expiredDate?: string;
-
 }

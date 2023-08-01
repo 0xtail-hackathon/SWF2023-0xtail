@@ -7,5 +7,6 @@ export const DATA_SOURCE = 'DATA_SOURCE';
 export enum REPOSITORY {
   USER = 'USER',
   FUND = 'FUND',
-  ARTIFACT = 'ARTIFACT'
+  ARTIFACT = 'ARTIFACT',
+  CROWD_SALE = 'CROWD_SALE'
 }

@@ -63,5 +63,14 @@ export class ApiController {
     };
   }
 
+  @Get('/artifacts')
+  async getArtifacts(): Promise<Response> {
+    const result = await this.apiService.getArtifacts();
+    return <Response>{
+      code: SUCCESS_CODE,
+      data: result,
+    };
+  }
 
+  // TODO 환수 완료 API (ADMIN)
 }

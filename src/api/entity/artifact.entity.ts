@@ -33,15 +33,6 @@ export class ArtifactEntity {
   @Column({ type: 'varchar', name: 'img_url' })
   imgUrl?: string;
 
-  @Column({ type: 'bigint', name: 'value'})
-  value?: number;
-
-  @Column({ type: 'varchar', name: 'strt_date' })
-  startDate?: string;
-
-  @Column({ type: 'varchar', name: 'exp_date' })
-  expiredDate?: string;
-
   @CreateDateColumn({ name: 'created_at' })
   public createdAt?: Date;
 
