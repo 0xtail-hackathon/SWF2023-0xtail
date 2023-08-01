@@ -12,6 +12,9 @@ export class CrowdSaleEntity {
   @Column({ type: 'varchar', name: 'address' })
   address?: string;
 
+  @Column({ type: 'text', name: 'description' })
+  description?: string;
+
   @Column({ type: 'bigint', name: 'value'})
   value?: number;
 

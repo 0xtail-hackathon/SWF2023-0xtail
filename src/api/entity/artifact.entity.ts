@@ -12,6 +12,9 @@ export class ArtifactEntity {
   @Column({ type: 'varchar', name: 'address' })
   address?: string;
 
+  @Column({ type: 'text', name: 'description' })
+  description?: string;
+
   @Column({ type: 'varchar', name: 'exc_loc' })
   excavationLocation?: string;
 
@@ -32,6 +35,9 @@ export class ArtifactEntity {
 
   @Column({ type: 'varchar', name: 'img_url' })
   imgUrl?: string;
+
+  @Column({ type: 'varchar', name: 'img_url_req' })
+  imgUrlReq?: string;
 
   @CreateDateColumn({ name: 'created_at' })
   public createdAt?: Date;
