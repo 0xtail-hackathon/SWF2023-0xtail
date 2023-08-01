@@ -1,27 +1,42 @@
-import { ethers } from "hardhat";
+import { Contract, ContractFactory } from 'ethers';
+import { ethers } from 'hardhat';
+import {DEPLOYER_PUBLIC_KEY, RATE} from "../constants";
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+const deploy = {
+  /**
+   * Main function to deploy the Crowdsale contract.
+   * @returns {Promise<void>}
+   */
+  async main(): Promise<void> {
+    try {
 
-  const lockedAmount = ethers.parseEther("0.001");
+      const RootToken: ContractFactory = await ethers.getContractFactory(
+          'RootToken'
+      );
+      const rootToken: Contract = await RootToken.deploy();
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+      await rootToken.deployed();
 
-  await lock.waitForDeployment();
+      console.log('RootTokenContract deployed to:', rootToken.address);
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
-}
+      const Crowdsale: ContractFactory = await ethers.getContractFactory(
+          'Crowdsale'
+      );
+      const crowdsale: Contract = await Crowdsale.deploy(RATE, DEPLOYER_PUBLIC_KEY, rootToken.address);
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+      await crowdsale.deployed();
+
+      console.log('CrowdsaleContract deployed to:', crowdsale.address);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+};
+
+deploy
+    .main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
