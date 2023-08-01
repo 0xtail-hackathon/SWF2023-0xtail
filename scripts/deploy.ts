@@ -1,6 +1,6 @@
 import { Contract, ContractFactory } from 'ethers';
 import { ethers } from 'hardhat';
-import {DEPLOYER_PUBLIC_KEY, RATE} from "../constants";
+import {CAP, DEPLOYER_PUBLIC_KEY, RATE} from "../constants";
 
 const deploy = {
   /**
@@ -9,20 +9,20 @@ const deploy = {
    */
   async main(): Promise<void> {
     try {
-
-      const RootToken: ContractFactory = await ethers.getContractFactory(
-          'RootToken'
-      );
-      const rootToken: Contract = await RootToken.deploy();
-
-      await rootToken.deployed();
-
-      console.log('RootTokenContract deployed to:', rootToken.address);
+      //
+      // const RootToken: ContractFactory = await ethers.getContractFactory(
+      //     'RootToken'
+      // );
+      // const rootToken: Contract = await RootToken.deploy();
+      //
+      // await rootToken.deployed();
+      //
+      // console.log('RootTokenContract deployed to:', rootToken.address);
 
       const Crowdsale: ContractFactory = await ethers.getContractFactory(
           'Crowdsale'
       );
-      const crowdsale: Contract = await Crowdsale.deploy(RATE, DEPLOYER_PUBLIC_KEY, rootToken.address);
+      const crowdsale: Contract = await Crowdsale.deploy(RATE, DEPLOYER_PUBLIC_KEY, CAP);
 
       await crowdsale.deployed();
 
