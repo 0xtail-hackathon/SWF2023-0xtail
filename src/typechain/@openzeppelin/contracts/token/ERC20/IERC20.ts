@@ -171,13 +171,13 @@ export interface IERC20 extends BaseContract {
   totalSupply: TypedContractMethod<[], [bigint], "view">;
 
   transfer: TypedContractMethod<
-    [to: AddressLike, amount: BigNumberish],
+    [recipient: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
 
   transferFrom: TypedContractMethod<
-    [from: AddressLike, to: AddressLike, amount: BigNumberish],
+    [sender: AddressLike, recipient: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
@@ -209,14 +209,14 @@ export interface IERC20 extends BaseContract {
   getFunction(
     nameOrSignature: "transfer"
   ): TypedContractMethod<
-    [to: AddressLike, amount: BigNumberish],
+    [recipient: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "transferFrom"
   ): TypedContractMethod<
-    [from: AddressLike, to: AddressLike, amount: BigNumberish],
+    [sender: AddressLike, recipient: AddressLike, amount: BigNumberish],
     [boolean],
     "nonpayable"
   >;

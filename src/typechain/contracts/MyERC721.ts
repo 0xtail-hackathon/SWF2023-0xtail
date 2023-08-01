@@ -23,40 +23,46 @@ import type {
   TypedContractMethod,
 } from "../common";
 
-export interface MyERC20Interface extends Interface {
+export interface MyERC721Interface extends Interface {
   getFunction(
     nameOrSignature:
       | "CONTROLLER_ROLE"
       | "DEFAULT_ADMIN_ROLE"
-      | "SPENDER_ROLE"
-      | "allowance"
       | "approve"
       | "balanceOf"
       | "burn"
-      | "burnFrom"
-      | "decimals"
-      | "decreaseAllowance"
-      | "forceTransfer"
-      | "getControllerRole"
+      | "contractURI"
+      | "exists"
+      | "getApproved"
       | "getRoleAdmin"
       | "getRoleMember"
       | "getRoleMemberCount"
-      | "getSpenderRole"
       | "grantRole"
       | "hasRole"
-      | "increaseAllowance"
+      | "isApprovedForAll"
       | "mint"
+      | "mintBatchWithURI"
+      | "mintWithURI"
       | "name"
       | "owner"
+      | "ownerOf"
       | "pause"
       | "paused"
       | "renounceOwnership"
       | "renounceRole"
       | "revokeRole"
+      | "safeTransferFrom(address,address,uint256)"
+      | "safeTransferFrom(address,address,uint256,bytes)"
+      | "setApprovalForAll"
+      | "setContractURI"
+      | "setTokenURI"
       | "supportsInterface"
       | "symbol"
+      | "tokenByIndex"
+      | "tokenIdTracker"
+      | "tokenOfOwnerByIndex"
+      | "tokenURI"
       | "totalSupply"
-      | "transfer"
       | "transferFrom"
       | "transferOwnership"
       | "unpause"
@@ -65,6 +71,7 @@ export interface MyERC20Interface extends Interface {
   getEvent(
     nameOrSignatureOrTopic:
       | "Approval"
+      | "ApprovalForAll"
       | "OwnershipTransferred"
       | "Paused"
       | "RoleAdminChanged"
@@ -83,14 +90,6 @@ export interface MyERC20Interface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "SPENDER_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "allowance",
-    values: [AddressLike, AddressLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "approve",
     values: [AddressLike, BigNumberish]
   ): string;
@@ -100,21 +99,16 @@ export interface MyERC20Interface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "burn", values: [BigNumberish]): string;
   encodeFunctionData(
-    functionFragment: "burnFrom",
-    values: [AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "decreaseAllowance",
-    values: [AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "forceTransfer",
-    values: [AddressLike, AddressLike, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getControllerRole",
+    functionFragment: "contractURI",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "exists",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getApproved",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getRoleAdmin",
@@ -129,10 +123,6 @@ export interface MyERC20Interface extends Interface {
     values: [BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "getSpenderRole",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "grantRole",
     values: [BytesLike, AddressLike]
   ): string;
@@ -141,15 +131,24 @@ export interface MyERC20Interface extends Interface {
     values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "increaseAllowance",
-    values: [AddressLike, BigNumberish]
+    functionFragment: "isApprovedForAll",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(functionFragment: "mint", values: [AddressLike]): string;
+  encodeFunctionData(
+    functionFragment: "mintBatchWithURI",
+    values: [AddressLike[], string[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "mint",
-    values: [AddressLike, BigNumberish]
+    functionFragment: "mintWithURI",
+    values: [AddressLike, string]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "ownerOf",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
   encodeFunctionData(
@@ -165,17 +164,49 @@ export interface MyERC20Interface extends Interface {
     values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "safeTransferFrom(address,address,uint256)",
+    values: [AddressLike, AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "safeTransferFrom(address,address,uint256,bytes)",
+    values: [AddressLike, AddressLike, BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setApprovalForAll",
+    values: [AddressLike, boolean]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setContractURI",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setTokenURI",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "totalSupply",
+    functionFragment: "tokenByIndex",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tokenIdTracker",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "transfer",
+    functionFragment: "tokenOfOwnerByIndex",
     values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tokenURI",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalSupply",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
@@ -195,26 +226,16 @@ export interface MyERC20Interface extends Interface {
     functionFragment: "DEFAULT_ADMIN_ROLE",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "SPENDER_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burnFrom", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "decreaseAllowance",
+    functionFragment: "contractURI",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "forceTransfer",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getControllerRole",
+    functionFragment: "getApproved",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -229,19 +250,24 @@ export interface MyERC20Interface extends Interface {
     functionFragment: "getRoleMemberCount",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getSpenderRole",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "increaseAllowance",
+    functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mintBatchWithURI",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "mintWithURI",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
   decodeFunctionResult(
@@ -254,15 +280,47 @@ export interface MyERC20Interface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "safeTransferFrom(address,address,uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "safeTransferFrom(address,address,uint256,bytes)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setApprovalForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setContractURI",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setTokenURI",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "tokenByIndex",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "tokenIdTracker",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "tokenOfOwnerByIndex",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
+  decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
     data: BytesLike
@@ -277,14 +335,36 @@ export interface MyERC20Interface extends Interface {
 export namespace ApprovalEvent {
   export type InputTuple = [
     owner: AddressLike,
-    spender: AddressLike,
-    value: BigNumberish
+    approved: AddressLike,
+    tokenId: BigNumberish
   ];
-  export type OutputTuple = [owner: string, spender: string, value: bigint];
+  export type OutputTuple = [owner: string, approved: string, tokenId: bigint];
   export interface OutputObject {
     owner: string;
-    spender: string;
-    value: bigint;
+    approved: string;
+    tokenId: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace ApprovalForAllEvent {
+  export type InputTuple = [
+    owner: AddressLike,
+    operator: AddressLike,
+    approved: boolean
+  ];
+  export type OutputTuple = [
+    owner: string,
+    operator: string,
+    approved: boolean
+  ];
+  export interface OutputObject {
+    owner: string;
+    operator: string;
+    approved: boolean;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -379,13 +459,13 @@ export namespace TransferEvent {
   export type InputTuple = [
     from: AddressLike,
     to: AddressLike,
-    value: BigNumberish
+    tokenId: BigNumberish
   ];
-  export type OutputTuple = [from: string, to: string, value: bigint];
+  export type OutputTuple = [from: string, to: string, tokenId: bigint];
   export interface OutputObject {
     from: string;
     to: string;
-    value: bigint;
+    tokenId: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -405,11 +485,11 @@ export namespace UnpausedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface MyERC20 extends BaseContract {
-  connect(runner?: ContractRunner | null): MyERC20;
+export interface MyERC721 extends BaseContract {
+  connect(runner?: ContractRunner | null): MyERC721;
   waitForDeployment(): Promise<this>;
 
-  interface: MyERC20Interface;
+  interface: MyERC721Interface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -452,45 +532,21 @@ export interface MyERC20 extends BaseContract {
 
   DEFAULT_ADMIN_ROLE: TypedContractMethod<[], [string], "view">;
 
-  SPENDER_ROLE: TypedContractMethod<[], [string], "view">;
-
-  allowance: TypedContractMethod<
-    [owner: AddressLike, spender: AddressLike],
-    [bigint],
-    "view"
-  >;
-
   approve: TypedContractMethod<
-    [spender: AddressLike, amount: BigNumberish],
-    [boolean],
-    "nonpayable"
-  >;
-
-  balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
-
-  burn: TypedContractMethod<[amount: BigNumberish], [void], "nonpayable">;
-
-  burnFrom: TypedContractMethod<
-    [account: AddressLike, amount: BigNumberish],
+    [to: AddressLike, tokenId: BigNumberish],
     [void],
     "nonpayable"
   >;
 
-  decimals: TypedContractMethod<[], [bigint], "view">;
+  balanceOf: TypedContractMethod<[owner: AddressLike], [bigint], "view">;
 
-  decreaseAllowance: TypedContractMethod<
-    [spender: AddressLike, subtractedValue: BigNumberish],
-    [boolean],
-    "nonpayable"
-  >;
+  burn: TypedContractMethod<[tokenId: BigNumberish], [void], "nonpayable">;
 
-  forceTransfer: TypedContractMethod<
-    [from: AddressLike, to: AddressLike, amount: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
+  contractURI: TypedContractMethod<[], [string], "view">;
 
-  getControllerRole: TypedContractMethod<[], [string], "view">;
+  exists: TypedContractMethod<[tokenId: BigNumberish], [boolean], "view">;
+
+  getApproved: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
 
   getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
 
@@ -501,8 +557,6 @@ export interface MyERC20 extends BaseContract {
   >;
 
   getRoleMemberCount: TypedContractMethod<[role: BytesLike], [bigint], "view">;
-
-  getSpenderRole: TypedContractMethod<[], [string], "view">;
 
   grantRole: TypedContractMethod<
     [role: BytesLike, account: AddressLike],
@@ -516,14 +570,22 @@ export interface MyERC20 extends BaseContract {
     "view"
   >;
 
-  increaseAllowance: TypedContractMethod<
-    [spender: AddressLike, addedValue: BigNumberish],
+  isApprovedForAll: TypedContractMethod<
+    [owner: AddressLike, operator: AddressLike],
     [boolean],
+    "view"
+  >;
+
+  mint: TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
+
+  mintBatchWithURI: TypedContractMethod<
+    [recipients: AddressLike[], _tokenURIList: string[]],
+    [void],
     "nonpayable"
   >;
 
-  mint: TypedContractMethod<
-    [to: AddressLike, amount: BigNumberish],
+  mintWithURI: TypedContractMethod<
+    [to: AddressLike, _tokenURI: string],
     [void],
     "nonpayable"
   >;
@@ -531,6 +593,8 @@ export interface MyERC20 extends BaseContract {
   name: TypedContractMethod<[], [string], "view">;
 
   owner: TypedContractMethod<[], [string], "view">;
+
+  ownerOf: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
 
   pause: TypedContractMethod<[], [void], "nonpayable">;
 
@@ -550,6 +614,41 @@ export interface MyERC20 extends BaseContract {
     "nonpayable"
   >;
 
+  "safeTransferFrom(address,address,uint256)": TypedContractMethod<
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  "safeTransferFrom(address,address,uint256,bytes)": TypedContractMethod<
+    [
+      from: AddressLike,
+      to: AddressLike,
+      tokenId: BigNumberish,
+      _data: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  setApprovalForAll: TypedContractMethod<
+    [operator: AddressLike, approved: boolean],
+    [void],
+    "nonpayable"
+  >;
+
+  setContractURI: TypedContractMethod<
+    [_contractURI: string],
+    [void],
+    "nonpayable"
+  >;
+
+  setTokenURI: TypedContractMethod<
+    [tokenId: BigNumberish, _tokenURI: string],
+    [void],
+    "nonpayable"
+  >;
+
   supportsInterface: TypedContractMethod<
     [interfaceId: BytesLike],
     [boolean],
@@ -558,17 +657,23 @@ export interface MyERC20 extends BaseContract {
 
   symbol: TypedContractMethod<[], [string], "view">;
 
-  totalSupply: TypedContractMethod<[], [bigint], "view">;
+  tokenByIndex: TypedContractMethod<[index: BigNumberish], [bigint], "view">;
 
-  transfer: TypedContractMethod<
-    [recipient: AddressLike, amount: BigNumberish],
-    [boolean],
-    "nonpayable"
+  tokenIdTracker: TypedContractMethod<[], [bigint], "view">;
+
+  tokenOfOwnerByIndex: TypedContractMethod<
+    [owner: AddressLike, index: BigNumberish],
+    [bigint],
+    "view"
   >;
 
+  tokenURI: TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
+
+  totalSupply: TypedContractMethod<[], [bigint], "view">;
+
   transferFrom: TypedContractMethod<
-    [sender: AddressLike, recipient: AddressLike, amount: BigNumberish],
-    [boolean],
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
     "nonpayable"
   >;
 
@@ -591,55 +696,27 @@ export interface MyERC20 extends BaseContract {
     nameOrSignature: "DEFAULT_ADMIN_ROLE"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "SPENDER_ROLE"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "allowance"
-  ): TypedContractMethod<
-    [owner: AddressLike, spender: AddressLike],
-    [bigint],
-    "view"
-  >;
-  getFunction(
     nameOrSignature: "approve"
   ): TypedContractMethod<
-    [spender: AddressLike, amount: BigNumberish],
-    [boolean],
+    [to: AddressLike, tokenId: BigNumberish],
+    [void],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "balanceOf"
-  ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
+  ): TypedContractMethod<[owner: AddressLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "burn"
-  ): TypedContractMethod<[amount: BigNumberish], [void], "nonpayable">;
+  ): TypedContractMethod<[tokenId: BigNumberish], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "burnFrom"
-  ): TypedContractMethod<
-    [account: AddressLike, amount: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "decimals"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "decreaseAllowance"
-  ): TypedContractMethod<
-    [spender: AddressLike, subtractedValue: BigNumberish],
-    [boolean],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "forceTransfer"
-  ): TypedContractMethod<
-    [from: AddressLike, to: AddressLike, amount: BigNumberish],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "getControllerRole"
+    nameOrSignature: "contractURI"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "exists"
+  ): TypedContractMethod<[tokenId: BigNumberish], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "getApproved"
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "getRoleAdmin"
   ): TypedContractMethod<[role: BytesLike], [string], "view">;
@@ -653,9 +730,6 @@ export interface MyERC20 extends BaseContract {
   getFunction(
     nameOrSignature: "getRoleMemberCount"
   ): TypedContractMethod<[role: BytesLike], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "getSpenderRole"
-  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "grantRole"
   ): TypedContractMethod<
@@ -671,16 +745,26 @@ export interface MyERC20 extends BaseContract {
     "view"
   >;
   getFunction(
-    nameOrSignature: "increaseAllowance"
+    nameOrSignature: "isApprovedForAll"
   ): TypedContractMethod<
-    [spender: AddressLike, addedValue: BigNumberish],
+    [owner: AddressLike, operator: AddressLike],
     [boolean],
-    "nonpayable"
+    "view"
   >;
   getFunction(
     nameOrSignature: "mint"
+  ): TypedContractMethod<[to: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "mintBatchWithURI"
   ): TypedContractMethod<
-    [to: AddressLike, amount: BigNumberish],
+    [recipients: AddressLike[], _tokenURIList: string[]],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "mintWithURI"
+  ): TypedContractMethod<
+    [to: AddressLike, _tokenURI: string],
     [void],
     "nonpayable"
   >;
@@ -690,6 +774,9 @@ export interface MyERC20 extends BaseContract {
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "ownerOf"
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "pause"
   ): TypedContractMethod<[], [void], "nonpayable">;
@@ -714,26 +801,71 @@ export interface MyERC20 extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "safeTransferFrom(address,address,uint256)"
+  ): TypedContractMethod<
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "safeTransferFrom(address,address,uint256,bytes)"
+  ): TypedContractMethod<
+    [
+      from: AddressLike,
+      to: AddressLike,
+      tokenId: BigNumberish,
+      _data: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "setApprovalForAll"
+  ): TypedContractMethod<
+    [operator: AddressLike, approved: boolean],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "setContractURI"
+  ): TypedContractMethod<[_contractURI: string], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setTokenURI"
+  ): TypedContractMethod<
+    [tokenId: BigNumberish, _tokenURI: string],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "supportsInterface"
   ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "symbol"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "tokenByIndex"
+  ): TypedContractMethod<[index: BigNumberish], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "tokenIdTracker"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "tokenOfOwnerByIndex"
+  ): TypedContractMethod<
+    [owner: AddressLike, index: BigNumberish],
+    [bigint],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "tokenURI"
+  ): TypedContractMethod<[tokenId: BigNumberish], [string], "view">;
+  getFunction(
     nameOrSignature: "totalSupply"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "transfer"
-  ): TypedContractMethod<
-    [recipient: AddressLike, amount: BigNumberish],
-    [boolean],
-    "nonpayable"
-  >;
-  getFunction(
     nameOrSignature: "transferFrom"
   ): TypedContractMethod<
-    [sender: AddressLike, recipient: AddressLike, amount: BigNumberish],
-    [boolean],
+    [from: AddressLike, to: AddressLike, tokenId: BigNumberish],
+    [void],
     "nonpayable"
   >;
   getFunction(
@@ -749,6 +881,13 @@ export interface MyERC20 extends BaseContract {
     ApprovalEvent.InputTuple,
     ApprovalEvent.OutputTuple,
     ApprovalEvent.OutputObject
+  >;
+  getEvent(
+    key: "ApprovalForAll"
+  ): TypedContractEvent<
+    ApprovalForAllEvent.InputTuple,
+    ApprovalForAllEvent.OutputTuple,
+    ApprovalForAllEvent.OutputObject
   >;
   getEvent(
     key: "OwnershipTransferred"
@@ -810,6 +949,17 @@ export interface MyERC20 extends BaseContract {
       ApprovalEvent.InputTuple,
       ApprovalEvent.OutputTuple,
       ApprovalEvent.OutputObject
+    >;
+
+    "ApprovalForAll(address,address,bool)": TypedContractEvent<
+      ApprovalForAllEvent.InputTuple,
+      ApprovalForAllEvent.OutputTuple,
+      ApprovalForAllEvent.OutputObject
+    >;
+    ApprovalForAll: TypedContractEvent<
+      ApprovalForAllEvent.InputTuple,
+      ApprovalForAllEvent.OutputTuple,
+      ApprovalForAllEvent.OutputObject
     >;
 
     "OwnershipTransferred(address,address)": TypedContractEvent<

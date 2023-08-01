@@ -58,6 +58,38 @@
 //       signerOrOptions?: ethers.Signer | FactoryOptions
 //     ): Promise<Contracts.IERC20__factory>;
 //     getContractFactory(
+//       name: "ERC721",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.ERC721__factory>;
+//     getContractFactory(
+//       name: "ERC721Burnable",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.ERC721Burnable__factory>;
+//     getContractFactory(
+//       name: "ERC721Enumerable",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.ERC721Enumerable__factory>;
+//     getContractFactory(
+//       name: "ERC721Pausable",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.ERC721Pausable__factory>;
+//     getContractFactory(
+//       name: "IERC721Enumerable",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.IERC721Enumerable__factory>;
+//     getContractFactory(
+//       name: "IERC721Metadata",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.IERC721Metadata__factory>;
+//     getContractFactory(
+//       name: "IERC721",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.IERC721__factory>;
+//     getContractFactory(
+//       name: "IERC721Receiver",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.IERC721Receiver__factory>;
+//     getContractFactory(
 //       name: "ERC165",
 //       signerOrOptions?: ethers.Signer | FactoryOptions
 //     ): Promise<Contracts.ERC165__factory>;
@@ -69,6 +101,10 @@
 //       name: "MyERC20",
 //       signerOrOptions?: ethers.Signer | FactoryOptions
 //     ): Promise<Contracts.MyERC20__factory>;
+//     getContractFactory(
+//       name: "MyERC721",
+//       signerOrOptions?: ethers.Signer | FactoryOptions
+//     ): Promise<Contracts.MyERC721__factory>;
 //
 //     getContractAt(
 //       name: "AccessControl",
@@ -126,6 +162,46 @@
 //       signer?: ethers.Signer
 //     ): Promise<Contracts.IERC20>;
 //     getContractAt(
+//       name: "ERC721",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.ERC721>;
+//     getContractAt(
+//       name: "ERC721Burnable",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.ERC721Burnable>;
+//     getContractAt(
+//       name: "ERC721Enumerable",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.ERC721Enumerable>;
+//     getContractAt(
+//       name: "ERC721Pausable",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.ERC721Pausable>;
+//     getContractAt(
+//       name: "IERC721Enumerable",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.IERC721Enumerable>;
+//     getContractAt(
+//       name: "IERC721Metadata",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.IERC721Metadata>;
+//     getContractAt(
+//       name: "IERC721",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.IERC721>;
+//     getContractAt(
+//       name: "IERC721Receiver",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.IERC721Receiver>;
+//     getContractAt(
 //       name: "ERC165",
 //       address: string | ethers.Addressable,
 //       signer?: ethers.Signer
@@ -140,6 +216,11 @@
 //       address: string | ethers.Addressable,
 //       signer?: ethers.Signer
 //     ): Promise<Contracts.MyERC20>;
+//     getContractAt(
+//       name: "MyERC721",
+//       address: string | ethers.Addressable,
+//       signer?: ethers.Signer
+//     ): Promise<Contracts.MyERC721>;
 //
 //     deployContract(
 //       name: "AccessControl",
@@ -186,6 +267,38 @@
 //       signerOrOptions?: ethers.Signer | DeployContractOptions
 //     ): Promise<Contracts.IERC20>;
 //     deployContract(
+//       name: "ERC721",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721>;
+//     deployContract(
+//       name: "ERC721Burnable",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721Burnable>;
+//     deployContract(
+//       name: "ERC721Enumerable",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721Enumerable>;
+//     deployContract(
+//       name: "ERC721Pausable",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721Pausable>;
+//     deployContract(
+//       name: "IERC721Enumerable",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721Enumerable>;
+//     deployContract(
+//       name: "IERC721Metadata",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721Metadata>;
+//     deployContract(
+//       name: "IERC721",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721>;
+//     deployContract(
+//       name: "IERC721Receiver",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721Receiver>;
+//     deployContract(
 //       name: "ERC165",
 //       signerOrOptions?: ethers.Signer | DeployContractOptions
 //     ): Promise<Contracts.ERC165>;
@@ -197,6 +310,10 @@
 //       name: "MyERC20",
 //       signerOrOptions?: ethers.Signer | DeployContractOptions
 //     ): Promise<Contracts.MyERC20>;
+//     deployContract(
+//       name: "MyERC721",
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.MyERC721>;
 //
 //     deployContract(
 //       name: "AccessControl",
@@ -254,6 +371,46 @@
 //       signerOrOptions?: ethers.Signer | DeployContractOptions
 //     ): Promise<Contracts.IERC20>;
 //     deployContract(
+//       name: "ERC721",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721>;
+//     deployContract(
+//       name: "ERC721Burnable",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721Burnable>;
+//     deployContract(
+//       name: "ERC721Enumerable",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721Enumerable>;
+//     deployContract(
+//       name: "ERC721Pausable",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.ERC721Pausable>;
+//     deployContract(
+//       name: "IERC721Enumerable",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721Enumerable>;
+//     deployContract(
+//       name: "IERC721Metadata",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721Metadata>;
+//     deployContract(
+//       name: "IERC721",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721>;
+//     deployContract(
+//       name: "IERC721Receiver",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.IERC721Receiver>;
+//     deployContract(
 //       name: "ERC165",
 //       args: any[],
 //       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -268,6 +425,11 @@
 //       args: any[],
 //       signerOrOptions?: ethers.Signer | DeployContractOptions
 //     ): Promise<Contracts.MyERC20>;
+//     deployContract(
+//       name: "MyERC721",
+//       args: any[],
+//       signerOrOptions?: ethers.Signer | DeployContractOptions
+//     ): Promise<Contracts.MyERC721>;
 //
 //     // default types
 //     getContractFactory(

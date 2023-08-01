@@ -13,14 +13,15 @@ export class SendFundRequestDTO {
 export class GenerateArtifactRequestDTO {
   name?: string;
   address?: string;
-  excavation_location?: string;
-  current_location?: string;
+  excavationLocation?: string;
+  currentLocation?: string;
   era?: string;
   category?: string;
   size?: string;
-  collection_number?: number;
-  imageUrl?: string;
+  collectionNumber?: string;
+  imgUrl?: string;
   value?: number;
   startDate?: string;
   expiredDate?: string;
+
 }

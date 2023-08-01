@@ -13,10 +13,10 @@ export class ArtifactEntity {
   address?: string;
 
   @Column({ type: 'varchar', name: 'exc_loc' })
-  excavation_location?: string;
+  excavationLocation?: string;
 
   @Column({ type: 'varchar', name: 'cur_loc' })
-  current_location?: string;
+  currentLocation?: string;
 
   @Column({ type: 'varchar', name: 'era' })
   era?: string;
@@ -27,13 +27,13 @@ export class ArtifactEntity {
   @Column({ type: 'varchar', name: 'size' })
   size?: string;
 
-  @Column({ type: 'int', name: 'coll_num' })
-  collection_number?: number;
+  @Column({ type: 'varchar', name: 'coll_num' })
+  collectionNumber?: string;
 
   @Column({ type: 'varchar', name: 'img_url' })
-  imageUrl?: string;
+  imgUrl?: string;
 
-  @Column({ type: 'int', name: 'value'})
+  @Column({ type: 'bigint', name: 'value'})
   value?: number;
 
   @Column({ type: 'varchar', name: 'strt_date' })

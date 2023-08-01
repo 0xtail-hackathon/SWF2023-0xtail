@@ -10,6 +10,7 @@ import {MyERC20, MyERC20__factory} from "~/src/typechain";
 import {FundEntity} from "~/src/api/entity/fund.entity";
 import {ArtifactEntity} from "~/src/api/entity/artifact.entity";
 import {GenerateArtifactRequestDTO} from "~/src/api/dto/requestDTO";
+import {MyERC721__factory} from "~/contract/typechain-types";
 
 @Injectable()
 export class ApiService {
@@ -23,9 +24,9 @@ export class ApiService {
     private configService: ConfigService,
     @Inject(REPOSITORY.USER)
     private userEntityRepository: Repository<UserEntity>,
-    @Inject(REPOSITORY.USER)
+    @Inject(REPOSITORY.FUND)
     private fundEntityRepository: Repository<FundEntity>,
-    @Inject(REPOSITORY.USER)
+    @Inject(REPOSITORY.ARTIFACT)
     private artifactEntityRepository: Repository<ArtifactEntity>,
   ) {
     this.ownerAddress = this.configService.get<string>('ownerAddress');
@@ -45,6 +46,8 @@ export class ApiService {
       value: ethers.parseEther('1')
     })
     const result = await transfer.wait();
+    this.logger.debug(JSON.stringify(result));
+
     if(result.status) {
       await this.userEntityRepository.save(<UserEntity>{
         name: userName,
@@ -71,13 +74,23 @@ export class ApiService {
     if(user.krw < amount) {
       throw new BadRequestException('not enough krw')
     }
-    const result = await this.erc20Contract.mint(user.address, user.address)
+    const result = await this.erc20Contract.mint(user.address, amount)
     const receipt: TransactionReceipt = await result.wait();
+    this.logger.debug(JSON.stringify(receipt));
+
     if(receipt.status) {
+      this.logger.debug(JSON.stringify(<FundEntity>{
+        userName: userName,
+        artifactName: artifactName,
+        amount: amount,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }));
+
       await this.fundEntityRepository.save(<FundEntity>{
-        userName,
-        artifactName,
-        amount,
+        userName: userName,
+        artifactName: artifactName,
+        amount: amount,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
@@ -94,10 +107,17 @@ export class ApiService {
   }
 
   async generateArtifact(artifact: GenerateArtifactRequestDTO): Promise<Record<string, any>> {
-    const address = '0x0NotImplNow';
+    const preArt = await this.artifactEntityRepository.findOneBy({name:artifact.name})
+    if(preArt) {
+      throw new BadRequestException('already exist artifact')
+    }
+    const erc721ContractFactory = new ethers.ContractFactory(MyERC721__factory.abi, MyERC721__factory.bytecode, this.wallet)
+    const erc721Contract = await erc721ContractFactory.deploy('test721', 'TST', 'http://')
+    // await erc721Contract.waitForDeployment()
+    this.logger.debug(JSON.stringify(await erc721Contract.getAddress()))
     await this.artifactEntityRepository.save(<ArtifactEntity>{
       ...artifact,
-      address: address,
+      address: await erc721Contract.getAddress(),
       createdAt: new Date(),
       updatedAt: new Date(),
     })

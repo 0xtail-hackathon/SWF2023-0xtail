@@ -26,8 +26,8 @@ export class ApiController {
   async sendFund(@Body() request: SendFundRequestDTO): Promise<Response> {
     this.logger.debug(JSON.stringify(request));
     const userName: string = request.userName;
-    const amount: number = request.amount;
     const artifactName: string = request.artifactName;
+    const amount: number = request.amount;
     const result = await this.apiService.sendFund(userName, artifactName, amount);
     return <Response>{
       code: SUCCESS_CODE,
@@ -45,9 +45,9 @@ export class ApiController {
   }
 
   @Post('/artifact/generate')
-  generateFund(@Body()request: GenerateArtifactRequestDTO): Response {
+  async generateFund(@Body()request: GenerateArtifactRequestDTO): Promise<Response> {
     this.logger.debug(JSON.stringify(request));
-    const result = this.apiService.generateArtifact(request);
+    const result = await this.apiService.generateArtifact(request);
     return <Response>{
       code: SUCCESS_CODE,
       data: result,
