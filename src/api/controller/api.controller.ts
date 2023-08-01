@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 
-import {CreatWalletRequestDTO, SendFundRequestDTO} from '~/src/api/dto/requestDTO';
+import {CreatWalletRequestDTO, GenerateArtifactRequestDTO, SendFundRequestDTO} from '~/src/api/dto/requestDTO';
 import { Response } from '~/src/api/dto/response';
 import { SUCCESS_CODE } from '~/src/common/constants';
 import { CommonLoggerService } from '~/src/logger/logger';
@@ -27,39 +27,41 @@ export class ApiController {
     this.logger.debug(JSON.stringify(request));
     const userName: string = request.userName;
     const amount: number = request.amount;
-    const result = await this.apiService.sendFund(userName, amount);
+    const artifactName: string = request.artifactName;
+    const result = await this.apiService.sendFund(userName, artifactName, amount);
     return <Response>{
       code: SUCCESS_CODE,
       data: result,
     };
   }
 
-  // @Get('/fund/:id')
-  // async getFundById(request: RequestDTO): Promise<Response> {
-  //   const result = await this.apiService.getFundById();
-  //   return <Response>{
-  //     code: SUCCESS_CODE,
-  //     data: result,
-  //   };
-  // }
-  //
-  // @Get('/fund/list')
-  // async getFundList(request: RequestDTO): Promise<Response> {
-  //   const result = await this.apiService.getFundList();
-  //   return <Response>{
-  //     code: SUCCESS_CODE,
-  //     data: result,
-  //   };
-  // }
-  //
-  //
-  //
-  // @Post('/admin/fund/generate')
-  // generateFund(request: RequestDTO): Response {
-  //   const result = this.apiService.generateFund();
-  //   return <Response>{
-  //     code: SUCCESS_CODE,
-  //     data: result,
-  //   };
-  // }
+  @Get('/fund/:name')
+  async getFundByArtifactName(@Param('name') fundName: string): Promise<Response> {
+    const result = await this.apiService.getFundByArtifactName(fundName);
+    return <Response>{
+      code: SUCCESS_CODE,
+      data: result,
+    };
+  }
+
+  @Post('/artifact/generate')
+  generateFund(@Body()request: GenerateArtifactRequestDTO): Response {
+    this.logger.debug(JSON.stringify(request));
+    const result = this.apiService.generateArtifact(request);
+    return <Response>{
+      code: SUCCESS_CODE,
+      data: result,
+    };
+  }
+
+  @Get('/artifact/:name')
+  async getArtifactByName(@Param('name') artifactName: string): Promise<Response> {
+    const result = await this.apiService.getArtifactByName(artifactName);
+    return <Response>{
+      code: SUCCESS_CODE,
+      data: result,
+    };
+  }
+
+
 }

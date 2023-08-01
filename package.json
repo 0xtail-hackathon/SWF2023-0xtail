@@ -1,7 +1,7 @@
 {
-  "name": "root-backend",
+  "name": "root-swf2023-backend",
   "version": "0.0.1",
-  "description": "Nest Template",
+  "description": "root-swf2023-backend",
   "private": true,
   "license": "MIT",
   "engines": {

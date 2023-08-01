@@ -1,22 +1,18 @@
 import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
 
-@Entity('user')
-@Unique(['name'])
-export class UserEntity {
+@Entity('fund')
+export class FundEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true, name: 'id' })
   id?: string;
 
-  @Column({ type: 'varchar', name: 'name' })
-  name?: string;
+  @Column({ type: 'varchar', name: 'usr_nm' })
+  userName?: string;
 
-  @Column({ type: 'varchar', name: 'address' })
-  address?: string;
+  @Column({ type: 'varchar', name: 'art_nm' })
+  artifactName?: string;
 
-  @Column({ type: 'varchar', name: 'private_key' })
-  privateKey?: string;
-
-  @Column({ type: 'int', name: 'krw', default: 1000000 })
-  krw?: number;
+  @Column({ type: 'int', name: 'amount', default: 1000000 })
+  amount?: number;
 
   @CreateDateColumn({ name: 'created_at' })
   public createdAt?: Date;
