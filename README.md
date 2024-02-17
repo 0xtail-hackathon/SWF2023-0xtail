@@ -10,10 +10,10 @@ swf2023 0xtail 팀 ROOT 프로젝트 최종본
 **Team: 0xtail**
 
 Contributors: 
-- 이진아 | Jina Lee | Product Manager, Designer
-- 윤석훈 | Seokhun Yoon (@imysh578) | Frontend
-- 김도영 | Doyoung Kim (@Do-youngKim) | Contract
-- 박유진 | Yujin Park (@owenPark256) | Backend
+- 이진아 | Jina Lee | Product Manager,  Designer
+- 윤석훈 | Seokhun Yoon (@imysh578) |  Frontend
+- 김도영 | Doyoung Kim (@Do-youngKim) |  Contract
+- 박유진 | Yujin Park (@owenPark256) |  Backend
 
 
 ### Cronos
